@@ -1,0 +1,303 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		84167836161B5613002C60E6 /* ACPIKeyboard.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 84167835161B5613002C60E6 /* ACPIKeyboard.cpp */; };
+		84366C8E1A38D5820015D1E2 /* patch.txt in Resources */ = {isa = PBXBuildFile; fileRef = 84366C8D1A38D5820015D1E2 /* patch.txt */; };
+		84833FC2161B69C700845294 /* ACPIKeyboard.h in Headers */ = {isa = PBXBuildFile; fileRef = 84167834161B5613002C60E6 /* ACPIKeyboard.h */; settings = {ATTRIBUTES = (); }; };
+		ED69366A1A38EAF100DD28C0 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = ED6936691A38EAF100DD28C0 /* README.md */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		84167817161B55B2002C60E6 /* Kernel.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Kernel.framework; path = System/Library/Frameworks/Kernel.framework; sourceTree = SDKROOT; };
+		8416782D161B5613002C60E6 /* ACPIKeyboard.kext */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ACPIKeyboard.kext; sourceTree = BUILT_PRODUCTS_DIR; };
+		84167830161B5613002C60E6 /* ACPIKeyboard-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "ACPIKeyboard-Info.plist"; sourceTree = "<group>"; };
+		84167834161B5613002C60E6 /* ACPIKeyboard.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ACPIKeyboard.h; sourceTree = "<group>"; };
+		84167835161B5613002C60E6 /* ACPIKeyboard.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; lineEnding = 0; path = ACPIKeyboard.cpp; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.cpp; };
+		84167837161B5613002C60E6 /* ACPIKeyboard-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ACPIKeyboard-Prefix.pch"; sourceTree = "<group>"; };
+		84366C8D1A38D5820015D1E2 /* patch.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = patch.txt; sourceTree = "<group>"; };
+		844952F1169A2696003DA49F /* makefile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.make; path = makefile; sourceTree = "<group>"; usesTabs = 1; };
+		84833FCC161BA27700845294 /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = System/Library/Frameworks/IOKit.framework; sourceTree = SDKROOT; };
+		ED6936691A38EAF100DD28C0 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		84167828161B5613002C60E6 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		84167806161B55B2002C60E6 = {
+			isa = PBXGroup;
+			children = (
+				ED6936691A38EAF100DD28C0 /* README.md */,
+				844952F1169A2696003DA49F /* makefile */,
+				84366C8D1A38D5820015D1E2 /* patch.txt */,
+				8416782E161B5613002C60E6 /* ACPIKeyboard */,
+				84167815161B55B2002C60E6 /* Frameworks */,
+				84167814161B55B2002C60E6 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		84167814161B55B2002C60E6 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				8416782D161B5613002C60E6 /* ACPIKeyboard.kext */,
+			);
+			name = Products;
+			path = Build/Products;
+			sourceTree = "<group>";
+		};
+		84167815161B55B2002C60E6 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				84167816161B55B2002C60E6 /* Other Frameworks */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		84167816161B55B2002C60E6 /* Other Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				84833FCC161BA27700845294 /* IOKit.framework */,
+				84167817161B55B2002C60E6 /* Kernel.framework */,
+			);
+			name = "Other Frameworks";
+			sourceTree = "<group>";
+		};
+		8416782E161B5613002C60E6 /* ACPIKeyboard */ = {
+			isa = PBXGroup;
+			children = (
+				84167834161B5613002C60E6 /* ACPIKeyboard.h */,
+				84167835161B5613002C60E6 /* ACPIKeyboard.cpp */,
+				8416782F161B5613002C60E6 /* Supporting Files */,
+			);
+			path = ACPIKeyboard;
+			sourceTree = "<group>";
+		};
+		8416782F161B5613002C60E6 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				84167830161B5613002C60E6 /* ACPIKeyboard-Info.plist */,
+				84167837161B5613002C60E6 /* ACPIKeyboard-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		84167829161B5613002C60E6 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				84833FC2161B69C700845294 /* ACPIKeyboard.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		8416782C161B5613002C60E6 /* ACPIKeyboard */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 84167838161B5613002C60E6 /* Build configuration list for PBXNativeTarget "ACPIKeyboard" */;
+			buildPhases = (
+				84167827161B5613002C60E6 /* Sources */,
+				84167828161B5613002C60E6 /* Frameworks */,
+				84167829161B5613002C60E6 /* Headers */,
+				8416782A161B5613002C60E6 /* Resources */,
+				8416782B161B5613002C60E6 /* Rez */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = ACPIKeyboard;
+			productName = ACPIKeyboard;
+			productReference = 8416782D161B5613002C60E6 /* ACPIKeyboard.kext */;
+			productType = "com.apple.product-type.kernel-extension";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		84167808161B55B2002C60E6 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0610;
+				ORGANIZATIONNAME = rehabman;
+			};
+			buildConfigurationList = 8416780B161B55B2002C60E6 /* Build configuration list for PBXProject "ACPIKeyboard" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				English,
+			);
+			mainGroup = 84167806161B55B2002C60E6;
+			productRefGroup = 84167814161B55B2002C60E6 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				8416782C161B5613002C60E6 /* ACPIKeyboard */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		8416782A161B5613002C60E6 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				84366C8E1A38D5820015D1E2 /* patch.txt in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXRezBuildPhase section */
+		8416782B161B5613002C60E6 /* Rez */ = {
+			isa = PBXRezBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXRezBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		84167827161B5613002C60E6 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				ED69366A1A38EAF100DD28C0 /* README.md in Sources */,
+				84167836161B5613002C60E6 /* ACPIKeyboard.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		84167822161B55B2002C60E6 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CURRENT_PROJECT_VERSION = 0.9.0;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEPLOYMENT_POSTPROCESSING = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"DEBUG_MSG=1",
+					"MACH_ASSERT=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				"LLVM_LTO[arch=x86_64]" = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.6;
+				MODULE_VERSION = "$(CURRENT_PROJECT_VERSION)";
+				"OTHER_LDFLAGS[arch=x86_64]" = "-dead_strip";
+				PRODUCT_NAME = ACPIKeyboard;
+				SDKROOT = macosx10.8;
+			};
+			name = Debug;
+		};
+		84167823161B55B2002C60E6 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CURRENT_PROJECT_VERSION = 0.9.0;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEPLOYMENT_POSTPROCESSING = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = YES;
+				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				"LLVM_LTO[arch=x86_64]" = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.6;
+				MODULE_VERSION = "$(CURRENT_PROJECT_VERSION)";
+				"OTHER_LDFLAGS[arch=x86_64]" = "-dead_strip";
+				PRODUCT_NAME = ACPIKeyboard;
+				SDKROOT = macosx10.8;
+			};
+			name = Release;
+		};
+		84167839161B5613002C60E6 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)";
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "ACPIKeyboard/ACPIKeyboard-Prefix.pch";
+				INFOPLIST_FILE = "ACPIKeyboard/ACPIKeyboard-Info.plist";
+				MODULE_NAME = org.rehabman.driver.ACPIKeyboard;
+				OTHER_CFLAGS = "-fno-stack-protector";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRIP_INSTALLED_PRODUCT = YES;
+				STRIP_STYLE = "non-global";
+				SYMROOT = Build/Products;
+			};
+			name = Debug;
+		};
+		8416783A161B5613002C60E6 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)";
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "ACPIKeyboard/ACPIKeyboard-Prefix.pch";
+				INFOPLIST_FILE = "ACPIKeyboard/ACPIKeyboard-Info.plist";
+				MODULE_NAME = org.rehabman.driver.ACPIKeyboard;
+				OTHER_CFLAGS = "-fno-stack-protector";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRIP_INSTALLED_PRODUCT = YES;
+				STRIP_STYLE = "non-global";
+				SYMROOT = Build/Products;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		8416780B161B55B2002C60E6 /* Build configuration list for PBXProject "ACPIKeyboard" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				84167822161B55B2002C60E6 /* Debug */,
+				84167823161B55B2002C60E6 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		84167838161B5613002C60E6 /* Build configuration list for PBXNativeTarget "ACPIKeyboard" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				84167839161B5613002C60E6 /* Debug */,
+				8416783A161B5613002C60E6 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 84167808161B55B2002C60E6 /* Project object */;
+}

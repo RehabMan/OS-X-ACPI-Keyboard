@@ -1,0 +1,16 @@
+#Maintained by: RehabMan for: ACPIKeyboard.kext
+#patch.txt
+
+# This patch serves to provide a catalyst to load ACPIKeyboard.kext
+# and it also provides a sink to send notifications to in
+# order to send messages to the kext to simulate keystrokes.
+
+into device label RMKB remove_entry;
+into definitionblock code_regex . insert
+begin
+Device (RMKB)\n
+{\n
+    Name(_HID, "RMKB0000")\n
+}\n
+end;
+

@@ -1,0 +1,7 @@
+Build
+DerivedData
+Distribute
+ACPIKeyboard.xcodeproj/project.xcworkspace/xcuserdata
+ACPIKeyboard.xcodeproj/xcuserdata
+*.xccheckout
+.DS_Store
