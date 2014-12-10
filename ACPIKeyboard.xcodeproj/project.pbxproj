@@ -8,9 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		84167836161B5613002C60E6 /* ACPIKeyboard.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 84167835161B5613002C60E6 /* ACPIKeyboard.cpp */; };
-		84366C8E1A38D5820015D1E2 /* patch.txt in Resources */ = {isa = PBXBuildFile; fileRef = 84366C8D1A38D5820015D1E2 /* patch.txt */; };
 		84833FC2161B69C700845294 /* ACPIKeyboard.h in Headers */ = {isa = PBXBuildFile; fileRef = 84167834161B5613002C60E6 /* ACPIKeyboard.h */; settings = {ATTRIBUTES = (); }; };
-		ED69366A1A38EAF100DD28C0 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = ED6936691A38EAF100DD28C0 /* README.md */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -159,7 +157,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				84366C8E1A38D5820015D1E2 /* patch.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -180,7 +177,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				ED69366A1A38EAF100DD28C0 /* README.md in Sources */,
 				84167836161B5613002C60E6 /* ACPIKeyboard.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
