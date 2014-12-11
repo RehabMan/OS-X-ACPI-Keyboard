@@ -38,6 +38,8 @@
 			<string>IOACPIPlatformDevice</string>
 			<key>IONameMatch</key>
 			<string>RMKB0000</string>
+			<key>HIDVirtualDevice</key>
+			<true/>
 		</dict>
 	</dict>
 	<key>OSBundleLibraries</key>
