@@ -90,12 +90,12 @@ void ACPIKeyboard::free()
 ACPIKeyboard* ACPIKeyboard::probe(IOService * provider, SInt32 * score)
 {
     DEBUG_LOG("ACPIKeyboard::probe entered...\n");
-    
+
     if (!super::probe(provider, score))
         return 0;
-    
+
     DEBUG_LOG("ACPIKeyboard::probe leaving.\n");
-    
+
     // Note: forced success regardless of "test keyboard echo"
     return this;
 }
@@ -108,6 +108,8 @@ bool ACPIKeyboard::start(IOService * provider)
     
     if (!super::start(provider))
         return false;
+
+    IOLog("ACPIKeyboard: Version 1.0 starting\n");
 
     DEBUG_LOG("ACPIKeyboard::start leaving.\n");
     
