@@ -49,6 +49,8 @@ class EXPORT ACPIKeyboard : public IOHIKeyboard
     
 private:
     bool dispatchKeyboardEventWithPacket(const UInt8* packet);
+    IOHIKeyboard *findKeyboardDevice();
+    IOHIKeyboard* _delegateKeyboard;
 
 protected:
     virtual const unsigned char * defaultKeymapOfLength(UInt32 * length);

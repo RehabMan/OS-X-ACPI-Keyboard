@@ -40,10 +40,17 @@
 			<string>RMKB0000</string>
 			<key>HIDVirtualDevice</key>
 			<true/>
+			<key>KeyboardNameMatch</key>
+			<array>
+				<string>PNP0303</string>
+				<string>PNP030B</string>
+			</array>
 		</dict>
 	</dict>
 	<key>OSBundleLibraries</key>
 	<dict>
+		<key>com.apple.iokit.IOACPIFamily</key>
+		<string>1.0.0d1</string>
 		<key>com.apple.iokit.IOHIDSystem</key>
 		<string>1.1</string>
 		<key>com.apple.kpi.bsd</key>

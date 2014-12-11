@@ -136,6 +136,15 @@ TBD...
 
 ### Change Log:
 
+(future release) v1.0
+
+- Set HIDVirtualDevice to keep this keyboard out of SysPrefs->Keyboard
+
+- Forward key events to the real PS2 driver (if found) so modifier keys work correctly.
+
+- Fix minor problemw with patch.txt ending up at Contents/Resources/patch.txt.  Add patch.txt to the ZIP.
+
+
 2014-12-10 v0.9
 
 - Created, based on my version of VoodooPS2Controller/VoodooPS2Keyboard

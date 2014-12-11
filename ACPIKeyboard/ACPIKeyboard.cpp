@@ -73,6 +73,8 @@ bool ACPIKeyboard::init(OSDictionary * dict)
     if (!super::init(dict))
         return false;
     
+    _delegateKeyboard = NULL;
+
     return true;
 }
 
@@ -116,6 +118,11 @@ bool ACPIKeyboard::start(IOService * provider)
 
 void ACPIKeyboard::stop(IOService * provider)
 {
+    if (NULL != _delegateKeyboard)
+    {
+        _delegateKeyboard->release();
+        _delegateKeyboard = NULL;
+    }
     super::stop(provider);
 }
 
@@ -160,16 +167,70 @@ bool ACPIKeyboard::dispatchKeyboardEventWithPacket(const UInt8* packet)
     bool goingDown = (packet[0] == 0x11);
     UInt8 adbKeyCode = packet[1];
 
-    DEBUG_LOG("%s: adb %s 0x%x\n", getName(),  goingDown ? "down" : "up", adbKeyCode);
+    DEBUG_LOG("%s: adb %s 0x%x\n", getName(), goingDown ? "down" : "up", adbKeyCode);
     
     uint64_t now_abs = *(uint64_t*)(&packet[kPacketTimeOffset]);
     uint64_t now_ns;
     absolutetime_to_nanoseconds(now_abs, &now_ns);
 
-    dispatchKeyboardEventX(adbKeyCode, goingDown, now_abs);
+    // attempt to forward the key through the real ps2 keyboard
+    if (NULL == _delegateKeyboard)
+    {
+        _delegateKeyboard = findKeyboardDevice();
+        if (NULL == _delegateKeyboard)
+            _delegateKeyboard = this;
+        _delegateKeyboard->retain();
+    }
+
+    // Note: dirty hack to call protected function in IOHIKeyboard...
+    ACPIKeyboard* keyboard = static_cast<ACPIKeyboard*>(_delegateKeyboard);
+    keyboard->dispatchKeyboardEventX(adbKeyCode, goingDown, now_abs);
 
     return true;
 }
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+IOHIKeyboard *ACPIKeyboard::findKeyboardDevice()
+{
+    OSObject *prop = getProperty("KeyboardNameMatch");
+    if (NULL == prop)
+        return NULL;
+
+    IOHIKeyboard* result = NULL;
+    // Search from the root of the ACPI plane for the first PS2 keyboard
+    IORegistryIterator *iter = IORegistryIterator::iterateOver(gIOACPIPlane, kIORegistryIterateRecursively);
+    if (NULL != iter)
+    {
+        while (IORegistryEntry* entry = iter->getNextObject())
+        {
+            // look for top node that matches PNP names in KeyboardNameMatch
+            if (entry->compareNames(prop))
+            {
+                // found one....
+                // now look at subnodes that are IOHIKeyboard
+                IORegistryIterator* iter2 = IORegistryIterator::iterateOver(entry, gIOServicePlane, kIORegistryIterateRecursively);
+                if (NULL != iter2)
+                {
+                    while (IORegistryEntry* entry2 = iter2->getNextObject())
+                    {
+                        result = OSDynamicCast(IOHIKeyboard, entry2);
+                        if (NULL != result)
+                        {
+                            DEBUG_LOG("%s::findKeyboardDevice, found: %s\n", getName(), result->getName());
+                            break;
+                        }
+                    }
+                    iter2->release();
+                }
+                break;
+            }
+        }
+        iter->release();
+    }
+    return result;
+}
+
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
