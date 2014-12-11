@@ -5,7 +5,7 @@
 	<key>Source Code</key>
 	<string>https://github.com/RehabMan/OS-X-ACPIKeyboard</string>
 	<key>CFBundleGetInfoString</key>
-	<string>0.9, Copyright Apple Computer, Inc. 2000-2003, RehabMan 2014</string>
+	<string>1.0, Copyright Apple Computer, Inc. 2000-2003, RehabMan 2014</string>
 	<key>CFBundleExecutable</key>
 	<string>ACPIKeyboard</string>
 	<key>CFBundleIdentifier</key>
@@ -17,11 +17,11 @@
 	<key>CFBundlePackageType</key>
 	<string>KEXT</string>
 	<key>CFBundleShortVersionString</key>
-	<string>0.9</string>
+	<string>1.0</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>0.9</string>
+	<string>1.0</string>
 	<key>IOKitPersonalities</key>
 	<dict>
 		<key>ACPIKeyboard</key>
