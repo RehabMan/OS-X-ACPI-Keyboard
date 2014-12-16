@@ -3,6 +3,7 @@
 KEXT=ACPIKeyboard.kext
 DIST=RehabMan-ACPIKeyboard
 BUILDDIR=./Build/Products
+INSTDIR=/System/Library/Extensions
 
 ifeq ($(findstring 32,$(BITS)),32)
 OPTIONS:=$(OPTIONS) -arch i386
@@ -29,12 +30,14 @@ update_kernelcache:
 
 .PHONY: install_debug
 install_debug:
-	sudo cp -R $(BUILDDIR)/Debug/$(KEXT) /System/Library/Extensions
+	sudo rm -Rf $(INSTDIR)/$(KEXT)
+	sudo cp -R $(BUILDDIR)/Debug/$(KEXT) $(INSTDIR)
 	make update_kernelcache
 
 .PHONY: install
 install:
-	sudo cp -R $(BUILDDIR)/Release/$(KEXT) /System/Library/Extensions
+	sudo rm -Rf $(INSTDIR)/$(KEXT)
+	sudo cp -R $(BUILDDIR)/Release/$(KEXT) $(INSTDIR)
 	make update_kernelcache
 
 .PHONY: distribute
