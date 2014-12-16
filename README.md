@@ -57,7 +57,7 @@ into method label _Q10 replace_content
 begin
 // Brightness Down\n
 Notify(\RMKB, 0x1191)\n
-Notify(\RMKB, 0x1292)\n
+Notify(\RMKB, 0x1291)\n
 end;
 into method label _Q11 replace_content
 begin
