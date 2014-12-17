@@ -165,7 +165,7 @@ TBD...
 
 ### Change Log:
 
-(future build) v1.0.1
+2014-12-17 v1.0.1
 
 - Allow for both delegated ADB codes and non-delegated ADB codes
 
