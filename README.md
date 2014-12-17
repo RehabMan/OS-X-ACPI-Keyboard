@@ -86,7 +86,7 @@ Please note: You must have a working brightness slider before attempting to fix 
 
 ** Important Note about the ELAN PS2 keyboard driver **
 
-It may use different codes for brightnesss up/down.  Brightness up=0x4f, Brightness down=0x4d?
+It may use different codes for brightnesss up/down.  Brightness up=0x4d, Brightness down=0x4f?
 
 Assuming that is the case, the same patch above would be written:
 
@@ -94,19 +94,19 @@ Assuming that is the case, the same patch above would be written:
 into method label _Q10 replace_content
 begin
 // Brightness Down\n
-Notify(\RMKB, 0x114d)\n
-Notify(\RMKB, 0x124d)\n
+Notify(\RMKB, 0x114f)\n
+Notify(\RMKB, 0x124f)\n
 end;
 
 into method label _Q11 replace_content
 begin
 // Brightness Up\n
-Notify(\RMKB, 0x114f)\n
-Notify(\RMKB, 0x124f)\n
+Notify(\RMKB, 0x114d)\n
+Notify(\RMKB, 0x124d)\n
 end;
 ```
 
-Note: The patch above uses delegated ADB codes (0x11xx/0x12xx) and uses the codes appropriate for the ELAN driver instead of the codes used by most PS2 drivers and this driver (0x4d/0x4f vs. 0x91/0x90).
+Note: The patch above uses delegated ADB codes (0x11xx/0x12xx) and uses the codes appropriate for the ELAN driver instead of the codes used by most PS2 drivers and this driver (0x4d/0x4f vs. 0x90/0x91).
 
 
 ### Build Environment
