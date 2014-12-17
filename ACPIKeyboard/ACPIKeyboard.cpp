@@ -109,7 +109,7 @@ bool ACPIKeyboard::start(IOService * provider)
     if (!super::start(provider))
         return false;
 
-    IOLog("ACPIKeyboard: Version 1.0 starting\n");
+    IOLog("ACPIKeyboard: Version 1.0.1 starting\n");
 
     DEBUG_LOG("ACPIKeyboard::start leaving.\n");
     
@@ -120,11 +120,13 @@ bool ACPIKeyboard::start(IOService * provider)
 
 void ACPIKeyboard::stop(IOService * provider)
 {
-    if (NULL != _delegateKeyboard)
+    if (NULL != _delegateKeyboard && this != _delegateKeyboard)
     {
+        // only keyboard other than 'this' is retained
         _delegateKeyboard->release();
-        _delegateKeyboard = NULL;
     }
+    _delegateKeyboard = NULL;
+
     super::stop(provider);
 }
 
@@ -149,7 +151,7 @@ IOReturn ACPIKeyboard::message(UInt32 type, IOService* provider, void* argument)
             UInt8 packet[kPacketLength];
             packet[0] = arg >> 8;
             packet[1] = arg;
-            if (0x11 == packet[0] || 0x12 == packet[0])
+            if (0x11 == packet[0] || 0x12 == packet[0] || 0x21 == packet[0] || 0x22 == packet[0])
             {
                 // mark packet with timestamp
                 clock_get_uptime((uint64_t*)(&packet[kPacketTimeOffset]));
@@ -166,26 +168,34 @@ IOReturn ACPIKeyboard::message(UInt32 type, IOService* provider, void* argument)
 
 bool ACPIKeyboard::dispatchKeyboardEventWithPacket(const UInt8* packet)
 {
-    bool goingDown = (packet[0] == 0x11);
-    UInt8 adbKeyCode = packet[1];
+    bool delegateEvent = (packet[0] >> 4) == 1; // 0x11/0x12 are delegated, 0x21/0x22 are non-delegated
+    bool goingDown = (packet[0] & 0xF) == 1; // 0x11/0x21 are down events, 0x12/0x22 are up events
+    UInt8 adbKeyCode = packet[1]; // ADB code is always in second byte
 
-    DEBUG_LOG("%s: adb %s 0x%x\n", getName(), goingDown ? "down" : "up", adbKeyCode);
+    DEBUG_LOG("%s: %sadb %s 0x%x\n", getName(), delegateEvent ? "(delegated)" : "", goingDown ? "down" : "up", adbKeyCode);
     
     uint64_t now_abs = *(uint64_t*)(&packet[kPacketTimeOffset]);
     uint64_t now_ns;
     absolutetime_to_nanoseconds(now_abs, &now_ns);
 
-    // attempt to forward the key through the real ps2 keyboard
-    if (NULL == _delegateKeyboard)
+    // determine which keyboard object to dispatch the key event through
+    ACPIKeyboard* keyboard = this;
+    if (delegateEvent)
     {
-        _delegateKeyboard = findKeyboardDevice();
+        // attempt to forward the key through the real ps2 keyboard
         if (NULL == _delegateKeyboard)
-            _delegateKeyboard = this;
-        _delegateKeyboard->retain();
+        {
+            _delegateKeyboard = findKeyboardDevice();
+            if (NULL != _delegateKeyboard)
+                _delegateKeyboard->retain();
+            else
+                _delegateKeyboard = this; // only look once for delegate keyboard
+        }
+        // Note: dirty hack to call protected function in IOHIKeyboard...
+        keyboard = static_cast<ACPIKeyboard*>(_delegateKeyboard);
     }
 
-    // Note: dirty hack to call protected function in IOHIKeyboard...
-    ACPIKeyboard* keyboard = static_cast<ACPIKeyboard*>(_delegateKeyboard);
+    // send code to keyboard found
     keyboard->dispatchKeyboardEventX(adbKeyCode, goingDown, now_abs);
 
     return true;

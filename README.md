@@ -56,31 +56,57 @@ Assuming _Q10 is brightness down, and _Q11 is up:
 into method label _Q10 replace_content
 begin
 // Brightness Down\n
-Notify(\RMKB, 0x1191)\n
-Notify(\RMKB, 0x1291)\n
+Notify(\RMKB, 0x2191)\n
+Notify(\RMKB, 0x2291)\n
 end;
+
 into method label _Q11 replace_content
 begin
 // Brightness Up\n
-Notify(\RMKB, 0x1190)\n
-Notify(\RMKB, 0x1290)\n
+Notify(\RMKB, 0x2190)\n
+Notify(\RMKB, 0x2290)\n
 end;
 ```
 
 The format of the data sent via Notify is as follows:
-- high-order 16-bits must be 0x11 or 0x12
-- 0x11 indicates keydown, 0x12 indicates keyup
+- high-order 16-bits must be 0x11, 0x12, 0x21, or 0x22
+- 0x11 indicates delegated keydown, 0x12 indicates delagated keyup
+- 0x21 indicates non-delegated keydown, 0x22 indicates non-delegated keyup
 - the low order 16-bits contain the ADB code to be sent
 
 ADB codes are defined by the data returned by ACPIKeyboard::defaultKeymapOfLength in ACPIKeyboard.cpp.
 
-In our example, we are sending brightness down and up, which are 0x91 and 0x90, respectively.  Note that each keystroke requires both a down and up (make and break) code to be sent.
+In our example, we are sending non-delegated brightness down and up, which are 0x91 and 0x90, respectively.  Note that each keystroke requires both a down and up (make and break) code to be sent.
+
+Delegated ADB codes are sent through the real PS2 driver (if installed).  An attempt is made to find the PS2 IOHIKeyboard device that is associated with a PS2 keyboard.  If one is found, delegated keys are sent through that keyboard object instead of the keyboard object provided by ACPIKeyboard.  This has the advantage of modifier keys (Shift, Ctrl, Option, Command) working as you would expect.  It is possible the PS2 keyboard driver installed uses a different keyboard map (therefore different ADB codes) than this driver.  You can see the keyboard map in ioreg (HIDKeyMapping).
+
+Non-delegated ADB codes are sent directly from the keyboard object implemented by this driver.  In this case, modifier keys have no effect, since the modifiers are being held down on a "different keyboard."  You should use delegated ADB codes if possible.
 
 Please note: You must have a working brightness slider before attempting to fix your brightness keys.
 
-** Important Note about the ELAN driver **
+** Important Note about the ELAN PS2 keyboard driver **
 
 It may use different codes for brightnesss up/down.  Brightness up=0x4f, Brightness down=0x4d?
+
+Assuming that is the case, the same patch above would be written:
+
+```
+into method label _Q10 replace_content
+begin
+// Brightness Down\n
+Notify(\RMKB, 0x114d)\n
+Notify(\RMKB, 0x124d)\n
+end;
+
+into method label _Q11 replace_content
+begin
+// Brightness Up\n
+Notify(\RMKB, 0x114f)\n
+Notify(\RMKB, 0x124f)\n
+end;
+```
+
+Note: The patch above uses delegated ADB codes (0x11xx/0x12xx) and uses the codes appropriate for the ELAN driver instead of the codes used by most PS2 drivers and this driver (0x4d/0x4f vs. 0x91/0x90).
 
 
 ### Build Environment
@@ -138,6 +164,11 @@ TBD...
 
 
 ### Change Log:
+
+(future build) v1.0.1
+
+- Allow for both delegated ADB codes and non-delegated ADB codes
+
 
 2014-12-16 v1.0
 
