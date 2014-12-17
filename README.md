@@ -78,6 +78,9 @@ In our example, we are sending brightness down and up, which are 0x91 and 0x90, 
 
 Please note: You must have a working brightness slider before attempting to fix your brightness keys.
 
+** Important Note about the ELAN driver **
+
+It may use different codes for brightnesss up/down.  Brightness up=0x4f, Brightness down=0x4d?
 
 
 ### Build Environment
@@ -136,7 +139,7 @@ TBD...
 
 ### Change Log:
 
-(future release) v1.0
+2014-12-16 v1.0
 
 - Forward key events to the real PS2 driver (if found) so modifier keys work correctly.
 
