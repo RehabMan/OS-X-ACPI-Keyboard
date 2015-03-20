@@ -11,6 +11,8 @@ If you're using my version of VoodooPS2Controller.kext (eg. you have a Synaptics
 
 The primary users of this kext will be those that are using another PS2 kext because they have a different trackpad not well supported by my version of VooodooPS2Controller.kext (eg. those with ELAN trackpads).
 
+Another good source of information on backlight control (including keyboard control) is here: http://www.tonymacx86.com/yosemite-laptop-support/152659-guide-patching-dsdt-ssdt-laptop-backlight-control.html
+
 
 ### Downloads:
 
@@ -70,7 +72,7 @@ end;
 
 The format of the data sent via Notify is as follows:
 - high-order 16-bits must be 0x11, 0x12, 0x21, or 0x22
-- 0x11 indicates delegated keydown, 0x12 indicates delagated keyup
+- 0x11 indicates delegated keydown, 0x12 indicates delegated keyup
 - 0x21 indicates non-delegated keydown, 0x22 indicates non-delegated keyup
 - the low order 16-bits contain the ADB code to be sent
 
@@ -107,6 +109,39 @@ end;
 ```
 
 Note: The patch above uses delegated ADB codes (0x11xx/0x12xx) and uses the codes appropriate for the ELAN driver instead of the codes used by most PS2 drivers and this driver (0x4d/0x4f vs. 0x90/0x91).
+
+### More ADB codes for ELAN
+
+With the ELAN PS2 keyboar driver loaded, if you look at HIDKeyMapping under PS2K...ApplePS2Keyboard, you find this data at the very end:
+[code]
+10 00 48 01 49 02 4d 03 4f 04 39 05 72 06 7f 07 4a 0a 47 0e 70 0f 50 10 42 11 44 12 46 13 40 14 34
+[/code]
+
+This is the "special key" area of the keymap (the bits returned from IOHIKeyboard::defaultKeymapOfLength) The first byte 0x10 is the number of codes that follow (I worked backwards from the end to verify this).
+
+The bytes that follow are thus 16 pairs of special codes.  The first byte in the pair is an NX_KEYTYPE (codes defined in the SDK ev_keymap.h). The second byte is the ADB code.
+
+So, you have these pairs:
+```
+00 48 //NX_KEYTYPE_SOUND_UP
+01 49 //NX_KEYTYPE_SOUND_DOWN
+02 4d //NX_KEYTYPE_BRIGHTNESS_UP
+03 4f //NX_KEYTYPE_BRIGHTNESS_DOWN
+04 39 //NX_KEYTYPE_CAPS_LOCK
+05 72 //NX_KEYTYPE_HELP
+06 7f //NX_POWER_KEY
+07 4a //NX_KEYTYPE_MUTE
+0a 47 //NX_KEYTYPE_NUM_LOCK
+0e 70 //NX_KEYTYPE_EJECT
+0f 50 //NX_KEYTYPE_VIDMIRROR
+10 42 //NX_KEYTYPE_PLAY
+11 44 //NX_KEYTYPE_NEXT
+12 46 //NX_KEYTYPE_PREVIOUS
+13 40 //NX_KEYTYPE_FAST
+14 34 //NX_KEYTYPE_REWIND
+```
+
+So now you know what (delegated) ADB codes (second column) to send to implement each of those functions.
 
 
 ### Build Environment
