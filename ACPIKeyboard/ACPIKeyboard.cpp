@@ -20,6 +20,7 @@
  * @APPLE_LICENSE_HEADER_END@
  */
 
+#include <libkern/version.h>
 #include <IOKit/IOLib.h>
 #include <IOKit/hidsystem/IOHIDParameter.h>
 #include "ACPIKeyboard.h"
@@ -109,7 +110,19 @@ bool ACPIKeyboard::start(IOService * provider)
     if (!super::start(provider))
         return false;
 
-    IOLog("ACPIKeyboard: Version 1.0.1 starting\n");
+    // announce version
+    extern kmod_info_t kmod_info;
+    IOLog("ACPIKeyboard: Version %s starting on OS X Darwin %d.%d.\n", kmod_info.version, version_major, version_minor);
+
+    // place version/build info in ioreg properties RM,Build and RM,Version
+    char buf[128];
+    snprintf(buf, sizeof(buf), "%s %s", kmod_info.name, kmod_info.version);
+    setProperty("RM,Version", buf);
+#ifdef DEBUG
+    setProperty("RM,Build", "Debug-" LOGNAME);
+#else
+    setProperty("RM,Build", "Release-" LOGNAME);
+#endif
 
     DEBUG_LOG("ACPIKeyboard::start leaving.\n");
     
