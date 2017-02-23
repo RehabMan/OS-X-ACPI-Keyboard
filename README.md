@@ -18,7 +18,7 @@ Another good source of information on backlight control (including keyboard cont
 
 Downloads are available on bitbucket:
 
-https://bitbucket.org/RehabMan/os-x-acpi-keyboard/downloads
+https://bitbucket.org/RehabMan/os-x-acpi-keyboard/downloads/
 
 
 ### How to Install:
